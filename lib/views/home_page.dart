@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tugas_resep/api/api_service.dart';
 import 'package:tugas_resep/models/resep.dart';
 import 'package:tugas_resep/service/auth_service.dart';
+import 'package:tugas_resep/views/details_page.dart';
 import 'package:tugas_resep/views/login_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -111,7 +112,7 @@ class _HomePageState extends State<HomePage> {
       future: _resepFuture,
       builder: (context, snapshot) {
         if(snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator(),);
+          return const Center(child: CircularProgressIndicator(color: Colors.white,),);
         }
         if(snapshot.hasError) {
           return Center(child: Text('Error'),);
@@ -142,7 +143,12 @@ class _HomePageState extends State<HomePage> {
   Widget _buiilCard(Resep resep) {
     return GestureDetector(
       onTap: () {
-
+        Navigator.push(
+          context, 
+          MaterialPageRoute(
+            builder: (_) => DetailsPage(nama: resep.name, id: resep.id,)
+          )
+        );
       },
       child: Container(
         decoration: BoxDecoration(
@@ -172,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                   if(progress==null) return child;
                   return const SizedBox(
                     height: 130,
-                    child: Center(child: CircularProgressIndicator(),),
+                    child: Center(child: CircularProgressIndicator(color: Colors.white,),),
                   );
                 },
                 errorBuilder: (_, __, ___) => const SizedBox(

@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 import 'views/login_page.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:tugas_resep/models/resep_hive.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  Hive.registerAdapter(ResepHiveAdapter());
+  await Hive.openBox<ResepHive>('favorites');
   runApp(const MainApp());
 }
 

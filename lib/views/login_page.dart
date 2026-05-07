@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_resep/service/auth_service.dart';
-import 'package:tugas_resep/views/home_page.dart';
+import 'package:tugas_resep/views/main_page.dart';
 import 'package:tugas_resep/views/register_page.dart';
 
 class LoginPage extends StatefulWidget {
@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
     if(sukses) {
       Navigator.pushReplacement(
         context, 
-        MaterialPageRoute(builder: (context) => HomePage())
+        MaterialPageRoute(builder: (context) => MainPage())
       );
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -61,13 +61,15 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: const Color.fromARGB(255, 252, 224, 140),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 252, 224, 140),
-        title: Text("Login"),
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(24), 
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text('Login', style: TextStyle(fontSize: 24),),
+            const SizedBox(height: 16,),
             TextField(
               controller: _usernameController,
               decoration: InputDecoration(
@@ -116,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
             const SizedBox(height: 10,), 
             TextButton(
               onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegisterPage())), 
-              child: const Text('Belum punya akun? Register')
+              child: const Text('Belum punya akun? Register', style: TextStyle(color: Colors.black),)
             )
           ],
         ),

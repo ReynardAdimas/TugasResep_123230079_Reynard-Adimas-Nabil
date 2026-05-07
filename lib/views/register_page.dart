@@ -68,13 +68,15 @@ class _RegisterPageState extends State<RegisterPage> {
       backgroundColor: const Color.fromARGB(255, 252, 224, 140),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 252, 224, 140),
-        title: Text('Register'),
-        centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(24), 
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text('Register', style: TextStyle(fontSize: 24),), 
+            const SizedBox(height: 16,),
             TextField(
               controller: _usernameController,
               decoration: InputDecoration(
