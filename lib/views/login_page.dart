@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tugas_resep/service/auth_service.dart';
 import 'package:tugas_resep/views/home_page.dart';
+import 'package:tugas_resep/views/register_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -14,9 +15,19 @@ class _LoginPageState extends State<LoginPage> {
   final _passwordController = TextEditingController();
   bool _isPasswordHidden = true;
 
+
   Future<void> _login() async {
     final username = _usernameController.text.trim(); 
     final password = _passwordController.text.trim(); 
+
+    if(username.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Username dan password wajib diisi'), 
+          backgroundColor: Colors.red,
+        )
+      );
+    }
 
     final sukses = await AuthService.login(username, password); 
 
@@ -34,6 +45,15 @@ class _LoginPageState extends State<LoginPage> {
       );
     }
   }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +115,7 @@ class _LoginPageState extends State<LoginPage> {
             ), 
             const SizedBox(height: 10,), 
             TextButton(
-              onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginPage())), 
+              onPressed: () => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => RegisterPage())), 
               child: const Text('Belum punya akun? Register')
             )
           ],

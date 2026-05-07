@@ -12,11 +12,26 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final _usernameController = TextEditingController(); 
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
   bool _isPasswordHidden = true; 
+  bool _isConfirmPasswordHidden = true;
   
   Future<void> _register() async {
     final username = _usernameController.text.trim(); 
     final password = _passwordController.text.trim(); 
+    final confirmPassword = _confirmPasswordController.text.trim(); 
+
+
+    if(password != confirmPassword) 
+    {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text("Konfirmasi password salah"),
+          backgroundColor: Colors.red,
+        )
+      );
+      return;
+    }
 
     if(username.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -90,6 +105,29 @@ class _RegisterPageState extends State<RegisterPage> {
                   }, 
                   icon: Icon(
                     _isPasswordHidden ? Icons.visibility_off : Icons.visibility
+                  )
+                )
+              ),
+            ), 
+            const SizedBox(height: 10,),
+            TextField(
+              controller: _confirmPasswordController,
+              obscureText: _isConfirmPasswordHidden,
+              decoration: InputDecoration(
+                labelText: 'Confirm Password', 
+                border: OutlineInputBorder(), 
+                contentPadding: EdgeInsets.symmetric(
+                  vertical: 8, 
+                  horizontal: 10
+                ), 
+                suffixIcon: IconButton(
+                  onPressed: (){
+                    setState(() {
+                      _isConfirmPasswordHidden = !_isConfirmPasswordHidden;
+                    });
+                  }, 
+                  icon: Icon(
+                    _isConfirmPasswordHidden ? Icons.visibility_off : Icons.visibility
                   )
                 )
               ),
